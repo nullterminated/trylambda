@@ -29,7 +29,7 @@ Simply throwing the exception isn't typically sufficient. For that reason, tryla
 
 ![4 0f 8 branches missed](https://i.stack.imgur.com/SggR6.png)
 
-With these classes, trylambda can execute a try with resources block, without negatively impacting unit test branch coverage. The {@link com.github.nullterminated.trylambda.Try Try} class has utility methods to execute try with resources blocks in a functional manner. The result is fewer, easier to test branches.
+With these classes, trylambda can execute a try with resources block, without negatively impacting unit test branch coverage. The Try class has utility methods to execute try with resources blocks in a functional manner. The result is fewer, easier to test branches.
 
 ## Examples
 
