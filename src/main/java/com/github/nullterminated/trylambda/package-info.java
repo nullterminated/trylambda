@@ -67,7 +67,19 @@
  * </p>
  * <h2 id="ex">Examples</h2>
  * <p>
- * As an example, a traditional try with resources block might look like:
+ * As an example of checked exception handling, consider opening a list of URLs. url.openConnection() may throw an
+ * IOException. Dealing with this in a stream of URLs is straightforward with trylambda. It looks like this:</p>
+ * <pre>
+ * <code>
+ * List&lt;Either&lt;Exception,URLConnection&gt;&gt; eithers = urls.stream()
+ * .map(url -&gt; Try.either(() -&gt; url.openConnection()))
+ * .collect(Collectors.toList());
+ * </code>
+ * </pre>
+ * <p>
+ * URLConnections are an easy case, because they do not need to be closed. As an example of auto closing, let's first
+ * consider what a traditional try with resources block might look like. For this example, we want to open a database
+ * connection, and handle the results:
  * </p>
  * <pre>
  * <code>
@@ -81,7 +93,7 @@ try (Connection conn = DriverManager.getConnection(url);
  * </code>
  * </pre>
  * <p>
- * And a unit test which only checks success will miss 21 of 24 branches. Using trylambda, this same expression can be
+ * A unit test which only checks success will miss 21 of 24 branches. Using trylambda, this same expression can be
  * rewritten as:
  * </p>
  * <pre>
