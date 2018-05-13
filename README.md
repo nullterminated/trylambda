@@ -33,6 +33,16 @@ With these classes, trylambda can execute a try with resources block, without ne
 
 ## Examples
 
+To add trylambda to a project with maven, add the following to the pom.xml depenedencies declaration:
+
+```xml
+<dependency>
+    <groupId>com.github.nullterminated</groupId>
+    <artifactId>trylambda</artifactId>
+    <version>1.0</version>
+</dependency>
+```
+
 As an example of checked exception handling, consider opening a list of URLs. url.openConnection() may throw an IOException. Dealing with this in a stream of URLs is straightforward with trylambda. It looks like this:
 
 ```java
