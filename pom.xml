@@ -20,7 +20,7 @@
 		<connection>scm:git:git://github.com/nullterminated/trylambda.git</connection>
 		<developerConnection>scm:git:ssh://github.com:nullterminated/trylambda.git</developerConnection>
 		<url>https://github.com/nullterminated/trylambda/tree/master</url>
-	</scm>	
+	</scm>
 	<licenses>
 		<license>
 			<name>GNU Affero General Public License Version 3</name>
@@ -40,6 +40,18 @@
 					<encoding>UTF-8</encoding>
 					<source>8</source>
 					<target>8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.1.0</version>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<Automatic-Module-Name>com.github.nullterminated.trylambda</Automatic-Module-Name>
+						</manifestEntries>
+					</archive>
 				</configuration>
 			</plugin>
 			<plugin>
