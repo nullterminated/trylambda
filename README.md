@@ -39,7 +39,7 @@ To add trylambda to a project with maven, add the following to the pom.xml depen
 <dependency>
     <groupId>com.github.nullterminated</groupId>
     <artifactId>trylambda</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
 </dependency>
 ```
 
