@@ -27,6 +27,11 @@ import java.util.Objects;
  */
 public final class WrappedException extends RuntimeException {
 	/**
+	 * Default serial version uid.
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Private constructor to prevent multiply nested WrappedExceptions.
 	 *
 	 * @param message the exception message
