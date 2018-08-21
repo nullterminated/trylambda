@@ -45,16 +45,11 @@ public class EitherTest {
 	 */
 	@Test
 	public void testUse() {
-		final List<Either<Integer, String>> eithers = Arrays.asList(
-				Either.left(1),
-				Either.right("hello"),
-				Either.right("world"),
-				Either.left(3));
+		final List<Either<Integer, String>> eithers = Arrays.asList(Either.left(1), Either.right("hello"),
+				Either.right("world"), Either.left(3));
 		final Holder<Integer> sum = new Holder<>();
 		sum.value = 0;
-		eithers.stream().forEach(either -> either.use(
-				left -> sum.value += left,
-				right -> sum.value += right.length()));
+		eithers.stream().forEach(either -> either.use(left -> sum.value += left, right -> sum.value += right.length()));
 		assertEquals(Integer.valueOf(14), sum.value);
 	}
 
@@ -63,16 +58,11 @@ public class EitherTest {
 	 */
 	@Test
 	public void testReduce() {
-		final List<Either<Integer, String>> eithers = Arrays.asList(
-				Either.left(1),
-				Either.right("hello"),
-				Either.right("world"),
-				Either.left(3));
+		final List<Either<Integer, String>> eithers = Arrays.asList(Either.left(1), Either.right("hello"),
+				Either.right("world"), Either.left(3));
 		final Holder<Integer> sum = new Holder<>();
 		sum.value = 0;
-		eithers.forEach(either -> sum.value += either.reduce(
-				left -> left,
-				right -> right.length()));
+		eithers.forEach(either -> sum.value += either.reduce(left -> left, right -> right.length()));
 		assertEquals(14, (int) sum.value);
 	}
 
@@ -81,13 +71,9 @@ public class EitherTest {
 	 */
 	@Test
 	public void testIsLeft() {
-		final List<Either<Integer, String>> eithers = Arrays.asList(
-				Either.left(1),
-				Either.right("hello"),
-				Either.right("world"),
-				Either.right("!"),
-				Either.left(3));
-		long lefts = eithers.stream().filter(Either::isLeft).count();
+		final List<Either<Integer, String>> eithers = Arrays.asList(Either.left(1), Either.right("hello"),
+				Either.right("world"), Either.right("!"), Either.left(3));
+		final long lefts = eithers.stream().filter(Either::isLeft).count();
 		assertEquals(2l, lefts);
 	}
 
@@ -96,13 +82,9 @@ public class EitherTest {
 	 */
 	@Test
 	public void testIsRight() {
-		final List<Either<Integer, String>> eithers = Arrays.asList(
-				Either.left(1),
-				Either.right("hello"),
-				Either.right("world"),
-				Either.right("!"),
-				Either.left(3));
-		long rights = eithers.stream().filter(Either::isRight).count();
+		final List<Either<Integer, String>> eithers = Arrays.asList(Either.left(1), Either.right("hello"),
+				Either.right("world"), Either.right("!"), Either.left(3));
+		final long rights = eithers.stream().filter(Either::isRight).count();
 		assertEquals(3l, rights);
 	}
 
@@ -111,16 +93,9 @@ public class EitherTest {
 	 */
 	@Test
 	public void testGetLeft() {
-		final List<Either<Integer, String>> eithers = Arrays.asList(
-				Either.left(1),
-				Either.right("hello"),
-				Either.right("world"),
-				Either.right("!"),
-				Either.left(3));
-		long lefts = eithers.stream()
-				.filter(Either::isLeft)
-				.map(Either::getLeft)
-				.count();
+		final List<Either<Integer, String>> eithers = Arrays.asList(Either.left(1), Either.right("hello"),
+				Either.right("world"), Either.right("!"), Either.left(3));
+		final long lefts = eithers.stream().filter(Either::isLeft).map(Either::getLeft).count();
 		assertEquals(2l, lefts);
 		assertThrows(UnsupportedOperationException.class, () -> Either.right("test").getLeft());
 	}
@@ -130,16 +105,9 @@ public class EitherTest {
 	 */
 	@Test
 	public void testGetRight() {
-		final List<Either<Integer, String>> eithers = Arrays.asList(
-				Either.left(1),
-				Either.right("hello"),
-				Either.right("world"),
-				Either.right("!"),
-				Either.left(3));
-		long rights = eithers.stream()
-				.filter(Either::isRight)
-				.map(Either::getRight)
-				.count();
+		final List<Either<Integer, String>> eithers = Arrays.asList(Either.left(1), Either.right("hello"),
+				Either.right("world"), Either.right("!"), Either.left(3));
+		final long rights = eithers.stream().filter(Either::isRight).map(Either::getRight).count();
 		assertEquals(3l, rights);
 		assertThrows(UnsupportedOperationException.class, () -> Either.left("test").getRight());
 	}
@@ -177,9 +145,9 @@ public class EitherTest {
 	 */
 	@Test
 	public void testLeft() {
-		Object left = "left";
-		Either expResult = Either.left("left");
-		Either result = Either.left(left);
+		final Object left = "left";
+		final Either<Object, Object> expResult = Either.left("left");
+		final Either<Object, Object> result = Either.left(left);
 		assertEquals(expResult, result);
 		assertThrows(IllegalArgumentException.class, () -> Either.left(null));
 	}
@@ -189,9 +157,9 @@ public class EitherTest {
 	 */
 	@Test
 	public void testRight() {
-		Object right = "right";
-		Either expResult = Either.right("right");
-		Either result = Either.right(right);
+		final Object right = "right";
+		final Either<Object, Object> expResult = Either.right("right");
+		final Either<Object, Object> result = Either.right(right);
 		assertEquals(expResult, result);
 		assertThrows(IllegalArgumentException.class, () -> Either.right(null));
 	}
@@ -201,14 +169,14 @@ public class EitherTest {
 	 */
 	@Test
 	public void testMap() {
-		Either instance = Either.left(1);
-		Either expResult = Either.left("1");
-		Either result = instance.map(left -> left.toString(), null);
+		final Either<Integer, Object> instance = Either.left(1);
+		final Either<String, Object> expResult = Either.left("1");
+		final Either<String, Object> result = instance.map(left -> left.toString(), null);
 		assertEquals(expResult, result);
 
-		Either instance2 = Either.right(1);
-		Either expResult2 = Either.right("1");
-		Either result2 = instance2.map(null, right -> right.toString());
+		final Either<Object, Integer> instance2 = Either.right(1);
+		final Either<Object, String> expResult2 = Either.right("1");
+		final Either<Object, String> result2 = instance2.map(null, right -> right.toString());
 		assertEquals(expResult2, result2);
 	}
 
