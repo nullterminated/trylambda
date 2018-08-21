@@ -28,16 +28,19 @@ public interface CheckedConsumer<T> extends Consumer<T> {
 	default void accept(final T t) {
 		try {
 			accepts(t);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			throw WrappedException.wrap(e);
 		}
 	}
 
 	/**
-	 * Same as {@link java.util.function.Consumer#accept(java.lang.Object) accept} except Exceptions may be thrown.
+	 * Same as {@link java.util.function.Consumer#accept(java.lang.Object) accept}
+	 * except Exceptions may be thrown.
 	 *
-	 * @param t the accepted type
-	 * @throws Exception an exception
+	 * @param t
+	 *            the accepted type
+	 * @throws Exception
+	 *             an exception
 	 */
 	void accepts(T t) throws Exception;
 }

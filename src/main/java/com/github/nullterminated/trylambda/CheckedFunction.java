@@ -24,20 +24,24 @@ import java.util.function.Function;
  * @author Ramsey Gurley
  */
 public interface CheckedFunction<T, R> extends Function<T, R> {
+	@Override
 	default R apply(T arg) {
 		try {
 			return applies(arg);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			throw WrappedException.wrap(e);
 		}
 	}
 
 	/**
-	 * Same as {@link java.util.function.Function#apply(java.lang.Object) apply} except Exceptions may be thrown.
+	 * Same as {@link java.util.function.Function#apply(java.lang.Object) apply}
+	 * except Exceptions may be thrown.
 	 *
-	 * @param arg the function argument
+	 * @param arg
+	 *            the function argument
 	 * @return the function result
-	 * @throws Exception an exception
+	 * @throws Exception
+	 *             an exception
 	 */
 	R applies(T arg) throws Exception;
 }

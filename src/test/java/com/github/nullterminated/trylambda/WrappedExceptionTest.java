@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2018 Ramsey Gurley
  *
  * This program is free software: you can redistribute it and/or modify
@@ -35,11 +35,11 @@ public class WrappedExceptionTest {
 	 */
 	@Test
 	public void testWrap_String_Throwable() {
-		String message1 = "1";
-		String message2 = "2";
-		Exception e = new Exception();
-		WrappedException wrap1 = WrappedException.wrap(message1, e);
-		WrappedException wrap2 = WrappedException.wrap(message2, wrap1);
+		final String message1 = "1";
+		final String message2 = "2";
+		final Exception e = new Exception();
+		final WrappedException wrap1 = WrappedException.wrap(message1, e);
+		final WrappedException wrap2 = WrappedException.wrap(message2, wrap1);
 		assertEquals(e, wrap1.getCause());
 		assertEquals(message1, wrap1.getMessage());
 		assertEquals(e, wrap2.getCause());
@@ -52,9 +52,9 @@ public class WrappedExceptionTest {
 	 */
 	@Test
 	public void testWrap_Throwable() {
-		Exception e = new Exception();
-		WrappedException wrap1 = WrappedException.wrap(e);
-		WrappedException wrap2 = WrappedException.wrap(wrap1);
+		final Exception e = new Exception();
+		final WrappedException wrap1 = WrappedException.wrap(e);
+		final WrappedException wrap2 = WrappedException.wrap(wrap1);
 		assertEquals(e, wrap1.getCause());
 		assertEquals(e, wrap2.getCause());
 		assertThrows(NullPointerException.class, () -> WrappedException.wrap(null));

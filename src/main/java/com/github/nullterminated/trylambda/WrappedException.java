@@ -19,9 +19,10 @@ package com.github.nullterminated.trylambda;
 import java.util.Objects;
 
 /**
- * A simple unchecked exception wrapper for wrapping checked {@link java.lang.Exception Exception} types. Throwable
- * types are not handled since Throwable includes system errors like
- * {@link java.lang.OutOfMemoryError OutOfMemoryError}.
+ * A simple unchecked exception wrapper for wrapping checked
+ * {@link java.lang.Exception Exception} types. Throwable types are not handled
+ * since Throwable includes system errors like {@link java.lang.OutOfMemoryError
+ * OutOfMemoryError}.
  *
  * @author Ramsey Gurley
  */
@@ -34,8 +35,10 @@ public final class WrappedException extends RuntimeException {
 	/**
 	 * Private constructor to prevent multiply nested WrappedExceptions.
 	 *
-	 * @param message the exception message
-	 * @param cause   the original exception
+	 * @param message
+	 *            the exception message
+	 * @param cause
+	 *            the original exception
 	 */
 	private WrappedException(String message, Exception cause) {
 		super(message, cause);
@@ -44,7 +47,8 @@ public final class WrappedException extends RuntimeException {
 	/**
 	 * Private constructor to prevent multiply nested WrappedExceptions.
 	 *
-	 * @param cause the original exception
+	 * @param cause
+	 *            the original exception
 	 */
 	private WrappedException(Exception cause) {
 		super(cause);
@@ -61,11 +65,14 @@ public final class WrappedException extends RuntimeException {
 	}
 
 	/**
-	 * Factory method to generate a WrappedException. If the Exception argument is itself a WrappedException, the cause
-	 * of that argument is rewrapped with the new message argument.
+	 * Factory method to generate a WrappedException. If the Exception argument is
+	 * itself a WrappedException, the cause of that argument is rewrapped with the
+	 * new message argument.
 	 *
-	 * @param message the exception message
-	 * @param e       the original exception
+	 * @param message
+	 *            the exception message
+	 * @param e
+	 *            the original exception
 	 * @return a new WrappedException
 	 */
 	public static WrappedException wrap(String message, Exception e) {
@@ -77,10 +84,11 @@ public final class WrappedException extends RuntimeException {
 	}
 
 	/**
-	 * Factory method to generate a WrappedException. If the Exception argument is itself a WrappedException, the cause
-	 * of that argument is rewrapped.
+	 * Factory method to generate a WrappedException. If the Exception argument is
+	 * itself a WrappedException, the cause of that argument is rewrapped.
 	 *
-	 * @param e the original exception
+	 * @param e
+	 *            the original exception
 	 * @return a new WrappedException
 	 */
 	public static WrappedException wrap(Exception e) {

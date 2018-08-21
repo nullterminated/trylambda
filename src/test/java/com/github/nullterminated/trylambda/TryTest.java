@@ -86,7 +86,8 @@ public class TryTest {
 		assertEquals(Integer.valueOf(1), trys(out, os1 -> trys(out, os2 -> () -> doIt(os1, os2))).get());
 		assertEquals(Integer.valueOf(1), trys(out, os1 -> trys(nil, os2 -> () -> doIt(os1, os2))).get());
 		assertEquals(Integer.valueOf(1), trys(out, os1 -> trys(thr, handler, os2 -> () -> doIt(os1, os2))).get());
-		assertThrows(RuntimeException.class, () -> trys(out, thrHandler, os1 -> trys(nil, thrHandler, os2 -> () -> doEx(os1, os2))).get());
+		assertThrows(RuntimeException.class,
+				() -> trys(out, thrHandler, os1 -> trys(nil, thrHandler, os2 -> () -> doEx(os1, os2))).get());
 		assertThrows(WrappedException.class, () -> trys(out, os1 -> trys(thr, os2 -> () -> doIt(os1, os2))).get());
 		assertThrows(WrappedException.class, () -> trys(out, os1 -> trys(clo, os2 -> () -> doIt(os1, os2))).get());
 		assertThrows(WrappedException.class, () -> trys(out, os1 -> trys(out, os2 -> () -> doEx(os1, os2))).get());

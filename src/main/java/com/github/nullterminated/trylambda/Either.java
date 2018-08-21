@@ -23,11 +23,13 @@ import java.util.function.Function;
 /**
  * A Java implementation of the Either monad.
  *
- * The Either type represents values with two possibilities: a value of type Either a b is either Left a or Right b.
+ * The Either type represents values with two possibilities: a value of type
+ * Either a b is either Left a or Right b.
  *
- * The Either type is sometimes used to represent a value which is either correct or an error; by convention, the Left
- * constructor is used to hold an error value and the Right constructor is used to hold a correct value (mnemonic:
- * "right" also means "correct").
+ * The Either type is sometimes used to represent a value which is either
+ * correct or an error; by convention, the Left constructor is used to hold an
+ * error value and the Right constructor is used to hold a correct value
+ * (mnemonic: "right" also means "correct").
  *
  * Pattern matching is accomplished using polymorphism.
  *
@@ -44,9 +46,12 @@ public abstract class Either<A, B> {
 	/**
 	 * Factory method for constructing lefts.
 	 *
-	 * @param <A>  the left type
-	 * @param <B>  the right type
-	 * @param left the left value
+	 * @param <A>
+	 *            the left type
+	 * @param <B>
+	 *            the right type
+	 * @param left
+	 *            the left value
 	 * @return a new left
 	 */
 	public static <A, B> Either<A, B> left(A left) {
@@ -56,9 +61,12 @@ public abstract class Either<A, B> {
 	/**
 	 * Factory method for constructing rights.
 	 *
-	 * @param <A>   the left type
-	 * @param <B>   the right type
-	 * @param right the right value
+	 * @param <A>
+	 *            the left type
+	 * @param <B>
+	 *            the right type
+	 * @param right
+	 *            the right value
 	 * @return a new right
 	 */
 	public static <A, B> Either<A, B> right(B right) {
@@ -84,32 +92,40 @@ public abstract class Either<A, B> {
 	/**
 	 *
 	 * @return the left value
-	 * @throws UnsupportedOperationException if the receiver is right
+	 * @throws UnsupportedOperationException
+	 *             if the receiver is right
 	 */
 	public abstract A getLeft();
 
 	/**
 	 *
 	 * @return the right value
-	 * @throws UnsupportedOperationException if the receiver is left
+	 * @throws UnsupportedOperationException
+	 *             if the receiver is left
 	 */
 	public abstract B getRight();
 
 	/**
 	 * Pass the value of this either to a consumer.
 	 *
-	 * @param leftConsumer  the consumer for lefts
-	 * @param rightConsumer the consumer for rights
+	 * @param leftConsumer
+	 *            the consumer for lefts
+	 * @param rightConsumer
+	 *            the consumer for rights
 	 */
 	public abstract void use(Consumer<A> leftConsumer, Consumer<B> rightConsumer);
 
 	/**
 	 * Map this Either&lt;A,B&gt; to a new Either&lt;X,Y&gt;.
 	 *
-	 * @param <X>           the new left type
-	 * @param <Y>           the new right type
-	 * @param leftFunction  function to convert A to X
-	 * @param rightFunction function to convert B to Y
+	 * @param <X>
+	 *            the new left type
+	 * @param <Y>
+	 *            the new right type
+	 * @param leftFunction
+	 *            function to convert A to X
+	 * @param rightFunction
+	 *            function to convert B to Y
 	 * @return a new Either&lt;X,Y&gt;
 	 */
 	public abstract <X, Y> Either<X, Y> map(Function<A, X> leftFunction, Function<B, Y> rightFunction);
@@ -117,9 +133,12 @@ public abstract class Either<A, B> {
 	/**
 	 * Reduce an Either&lt;A,B&gt; to a single value type T.
 	 *
-	 * @param <T>           the result type
-	 * @param leftFunction  function to convert A to T
-	 * @param rightFunction function to convert B to T
+	 * @param <T>
+	 *            the result type
+	 * @param leftFunction
+	 *            function to convert A to T
+	 * @param rightFunction
+	 *            function to convert B to T
 	 * @return a value typed T
 	 */
 	public abstract <T> T reduce(Function<A, T> leftFunction, Function<B, T> rightFunction);
@@ -161,10 +180,8 @@ public abstract class Either<A, B> {
 
 		@Override
 		public boolean equals(final Object obj) {
-			return this == obj
-					|| (obj != null
-					&& Objects.equals(getClass(), obj.getClass())
-					&& Objects.equals(left, ((Left<?, ?>) obj).left));
+			return this == obj || obj != null && Objects.equals(getClass(), obj.getClass())
+					&& Objects.equals(left, ((Left<?, ?>) obj).left);
 		}
 
 		@Override
@@ -223,10 +240,8 @@ public abstract class Either<A, B> {
 
 		@Override
 		public boolean equals(final Object obj) {
-			return this == obj
-					|| (obj != null
-					&& Objects.equals(getClass(), obj.getClass())
-					&& Objects.equals(right, ((Right<?, ?>) obj).right));
+			return this == obj || obj != null && Objects.equals(getClass(), obj.getClass())
+					&& Objects.equals(right, ((Right<?, ?>) obj).right);
 		}
 
 		@Override
