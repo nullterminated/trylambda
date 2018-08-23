@@ -36,11 +36,11 @@ public class CheckedFunctionTest {
 	@Test
 	public void testApply() {
 		final Exception ex = new Exception();
-		final CheckedFunction<Integer, Integer> fun1 = i -> i;
+		final CheckedFunction<Integer, Integer> fun1 = i -> i + 1;
 		final CheckedFunction<Integer, Integer> fun2 = i -> {
 			throw ex;
 		};
-		assertEquals(Integer.valueOf(1), fun1.apply(1));
+		assertEquals(Integer.valueOf(2), fun1.apply(1));
 		assertThrows(WrappedException.class, () -> fun2.apply(1));
 	}
 }

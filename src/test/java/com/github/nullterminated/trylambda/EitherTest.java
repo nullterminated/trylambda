@@ -207,12 +207,12 @@ public class EitherTest {
 	public void testMap() {
 		final Either<Integer, Object> instance = Either.left(1);
 		final Either<String, Object> expResult = Either.left("1");
-		final Either<String, Object> result = instance.map(left -> left.toString(), null);
+		final Either<String, Object> result = instance.map(Object::toString, null);
 		assertEquals(expResult, result);
 
 		final Either<Object, Integer> instance2 = Either.right(1);
 		final Either<Object, String> expResult2 = Either.right("1");
-		final Either<Object, String> result2 = instance2.map(null, right -> right.toString());
+		final Either<Object, String> result2 = instance2.map(null, Object::toString);
 		assertEquals(expResult2, result2);
 	}
 
