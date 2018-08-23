@@ -101,14 +101,13 @@ public class TryTest {
 	@Test
 	public void testEither() {
 		final Exception ex = new Exception();
-		final RuntimeException rtex = new RuntimeException();
 		final Supplier<Integer> supplier = () -> {
-			throw rtex;
+			throw EX;
 		};
 		assertEquals(Either.right(1), either(() -> 1));
 		assertEquals(Either.left(ex), either(() -> {
 			throw ex;
 		}));
-		assertEquals(Either.left(rtex), either(supplier));
+		assertEquals(Either.left(EX), either(supplier));
 	}
 }
