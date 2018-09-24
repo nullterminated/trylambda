@@ -18,10 +18,6 @@ package com.github.nullterminated.trylambda;
 
 import static com.github.nullterminated.trylambda.Try.either;
 import static com.github.nullterminated.trylambda.Try.trys;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -29,7 +25,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Modifier;
 import java.util.function.Function;
 import java.util.function.Supplier;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -37,6 +35,7 @@ import org.junit.jupiter.api.Test;
  * @author Ramsey Gurley
  */
 public class TryTest {
+
 	private static final RuntimeException EX = new RuntimeException();
 	private final CheckedSupplier<ByteArrayOutputStream> out = ByteArrayOutputStream::new;
 	private final CheckedSupplier<ByteArrayOutputStream> nil = () -> null;
@@ -66,8 +65,6 @@ public class TryTest {
 		assertEquals(1, clazz.getDeclaredConstructors().length);
 		final Constructor<?> cons = clazz.getDeclaredConstructor();
 		assertTrue(Modifier.isPrivate(cons.getModifiers()));
-		cons.setAccessible(true);
-		cons.newInstance();
 	}
 
 	static Integer doIt(OutputStream os1, ByteArrayOutputStream os2) {
@@ -82,7 +79,7 @@ public class TryTest {
 	 * Test of trys method, of class Try.
 	 */
 	@Test
-	public void testTrys() throws Throwable {
+	public void testTrys() {
 		assertEquals(Integer.valueOf(1), trys(out, os1 -> trys(out, os2 -> () -> doIt(os1, os2))).get());
 		assertEquals(Integer.valueOf(1), trys(out, os1 -> trys(nil, os2 -> () -> doIt(os1, os2))).get());
 		assertEquals(Integer.valueOf(1), trys(out, os1 -> trys(thr, handler, os2 -> () -> doIt(os1, os2))).get());
