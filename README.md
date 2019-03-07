@@ -40,7 +40,7 @@ The default packaging for trylambda is a jigsaw jmod. To add trylambda as a modu
     <groupId>com.github.nullterminated</groupId>
     <artifactId>trylambda</artifactId>
     <version>1.4</version>
-	<classifier>modular-jar</classifier>
+    <classifier>modular-jar</classifier>
 </dependency>
 ```
 
