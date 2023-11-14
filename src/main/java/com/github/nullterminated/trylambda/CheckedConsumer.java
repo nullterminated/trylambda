@@ -21,6 +21,7 @@ import java.util.function.Consumer;
 /**
  * A consumer interface that automatically wraps any exceptions.
  *
+ * @param <T> the type consumed
  * @author Ramsey Gurley
  */
 public interface CheckedConsumer<T> extends Consumer<T> {
@@ -37,10 +38,8 @@ public interface CheckedConsumer<T> extends Consumer<T> {
 	 * Same as {@link java.util.function.Consumer#accept(java.lang.Object) accept}
 	 * except Exceptions may be thrown.
 	 *
-	 * @param t
-	 *            the accepted type
-	 * @throws Exception
-	 *             an exception
+	 * @param t the accepted type
+	 * @throws Exception an exception
 	 */
 	void accepts(T t) throws Exception;
 }

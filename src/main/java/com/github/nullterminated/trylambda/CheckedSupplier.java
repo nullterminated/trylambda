@@ -22,8 +22,7 @@ import java.util.function.Supplier;
  * A supplier interface that automatically wraps any exceptions.
  *
  * @author Ramsey Gurley
- * @param <T>
- *            the supplier return type
+ * @param <T> the supplier return type
  */
 @FunctionalInterface
 public interface CheckedSupplier<T> extends Supplier<T> {
@@ -43,8 +42,7 @@ public interface CheckedSupplier<T> extends Supplier<T> {
 	 * be thrown.
 	 *
 	 * @return the supplied object
-	 * @throws Exception
-	 *             an exception
+	 * @throws Exception an exception
 	 */
 	T gets() throws Exception;
 }

@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * <h1>trylambda</h1>
+ * <h2>trylambda</h2>
  * <p>
  * <img src=
  * "https://i.pinimg.com/originals/b9/4a/7f/b94a7f548b303e81b1bcd8da4d0912ec.jpg"
@@ -23,7 +23,7 @@
  * A small Java library to improve checked exception handling in lambda
  * expressions.
  * </p>
- * <h2 id="contents">Contents</h2>
+ * <h3 id="contents">Contents</h3>
  * <ol>
  * <li><a href="#why">Why trylambda?</a></li>
  * <li><a href="#wrap">Wrapped Exceptions</a></li>
@@ -32,7 +32,7 @@
  * <li><a href="#ex">Examples</a></li>
  * <li><a href="#lic">License</a></li>
  * </ol>
- * <h2 id="why">Why</h2>
+ * <h3 id="why">Why</h3>
  * <p>
  * trylambda aims to solve two problems.
  * </p>
@@ -42,7 +42,7 @@
  * <li>Using try with resources blocks in Java 7 often results in test induced
  * design damage.</li>
  * </ul>
- * <h2 id="wrap">Wrapped Exceptions</h2>
+ * <h3 id="wrap">Wrapped Exceptions</h3>
  * <p>
  * The first strategy for dealing with checked exceptions in lambda expressions
  * is to wrap them in a runtime exception and rethrow. trylambda extends the
@@ -54,7 +54,7 @@
  * thrown in a {@link com.github.nullterminated.trylambda.WrappedException
  * WrappedException}.
  * </p>
- * <h2 id="eith">Either</h2>
+ * <h3 id="eith">Either</h3>
  * <p>
  * Simply throwing the exception isn't typically sufficient. For that reason,
  * trylambda implements the {@link com.github.nullterminated.trylambda.Either
@@ -63,7 +63,7 @@
  * Code using the returned value may then handle either the exception or the
  * expected result.
  * </p>
- * <h2 id="res">Try With Resources</h2>
+ * <h3 id="res">Try With Resources</h3>
  * <p>
  * <img src="https://i.stack.imgur.com/SggR6.png" alt="4 0f 8 branches
  * missed"><br>
@@ -73,13 +73,13 @@
  * to execute try with resources blocks in a functional manner. The result is
  * fewer, easier to test branches.
  * </p>
- * <h2 id="ex">Examples</h2>
+ * <h3 id="ex">Examples</h3>
  * <p>
  * As an example of checked exception handling, consider opening a list of URLs.
  * url.openConnection() may throw an IOException. Dealing with this in a stream
  * of URLs is straightforward with trylambda. It looks like this:
  * </p>
- * 
+ *
  * <pre>
  * <code>
  * List&lt;Either&lt;Exception,URLConnection&gt;&gt; eithers = urls.stream()
@@ -93,7 +93,7 @@
  * resources block might look like. For this example, we want to open a database
  * connection, and handle the results:
  * </p>
- * 
+ *
  * <pre>
  * <code>
 try (Connection conn = DriverManager.getConnection(url);
@@ -109,7 +109,7 @@ try (Connection conn = DriverManager.getConnection(url);
  * A unit test which only checks success will miss 21 of 24 branches. Using
  * trylambda, this same expression can be rewritten as:
  * </p>
- * 
+ *
  * <pre>
  * <code>
 either(() -&gt; trys(() -&gt; DriverManager.getConnection(url),
@@ -125,7 +125,7 @@ either(() -&gt; trys(() -&gt; DriverManager.getConnection(url),
  * returning a result type R, instead the result here is Either&lt;Exception,
  * R&gt; returned by the outermost call to the either method.
  * </p>
- * <h2 id="lic">License</h2>
+ * <h3 id="lic">License</h3>
  * <p>
  * trylambda is dual license. It is available under AGPLv3 or a commercial
  * license. The current license fee for commercial licensing is $5.00 per

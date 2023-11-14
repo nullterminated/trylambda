@@ -34,6 +34,8 @@ import java.util.function.Function;
  *
  * Pattern matching is accomplished using polymorphism.
  *
+ * @param <A> the left value type
+ * @param <B> the right value type
  * @author Ramsey Gurley
  */
 public abstract class Either<A, B> implements Serializable {
