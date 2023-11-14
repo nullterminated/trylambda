@@ -21,9 +21,15 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.NotSerializableException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -72,7 +78,7 @@ public class EitherTest {
 		sum.value = 0;
 		eithers.forEach(either -> sum.value += either.reduce(
 				left -> left,
-				right -> right.length()));
+				String::length));
 		assertEquals(14, (int) sum.value);
 	}
 
@@ -90,7 +96,7 @@ public class EitherTest {
 		final long lefts = eithers.stream()
 				.filter(Either::isLeft)
 				.count();
-		assertEquals(2l, lefts);
+		assertEquals(2L, lefts);
 	}
 
 	/**
@@ -107,7 +113,7 @@ public class EitherTest {
 		final long rights = eithers.stream()
 				.filter(Either::isRight)
 				.count();
-		assertEquals(3l, rights);
+		assertEquals(3L, rights);
 	}
 
 	/**
@@ -125,7 +131,7 @@ public class EitherTest {
 				.filter(Either::isLeft)
 				.map(Either::getLeft)
 				.count();
-		assertEquals(2l, lefts);
+		assertEquals(2L, lefts);
 		assertThrows(UnsupportedOperationException.class, () -> Either.right("test").getLeft());
 	}
 
@@ -144,7 +150,7 @@ public class EitherTest {
 				.filter(Either::isRight)
 				.map(Either::getRight)
 				.count();
-		assertEquals(3l, rights);
+		assertEquals(3L, rights);
 		assertThrows(UnsupportedOperationException.class, () -> Either.left("test").getRight());
 	}
 
@@ -225,4 +231,25 @@ public class EitherTest {
 		assertEquals(Either.left(1), Either.right(1).flip());
 	}
 
+	@Test
+	public void testSerialiable() throws Exception {
+		final Either<Integer, Thread> expected = Either.left(1);
+
+		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		final ObjectOutputStream os = new ObjectOutputStream(baos);
+		os.writeObject(expected);
+		final ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+		final ObjectInputStream is = new ObjectInputStream(bais);
+
+		Assertions.assertEquals(expected, is.readObject());
+	}
+
+	@Test
+	public void testSerializableException() throws Exception {
+		final Either<Integer, Thread> expected = Either.right(new Thread());
+
+		final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		final ObjectOutputStream os = new ObjectOutputStream(baos);
+		assertThrows(NotSerializableException.class, () -> os.writeObject(expected));
+	}
 }

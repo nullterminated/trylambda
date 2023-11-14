@@ -16,6 +16,7 @@
  */
 package com.github.nullterminated.trylambda;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -35,7 +36,9 @@ import java.util.function.Function;
  *
  * @author Ramsey Gurley
  */
-public abstract class Either<A, B> {
+public abstract class Either<A, B> implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Private constructor to limit subclasses to inner classes.
@@ -46,30 +49,24 @@ public abstract class Either<A, B> {
 	/**
 	 * Factory method for constructing lefts.
 	 *
-	 * @param <A>
-	 *            the left type
-	 * @param <B>
-	 *            the right type
-	 * @param left
-	 *            the left value
+	 * @param <A>  the left type
+	 * @param <B>  the right type
+	 * @param left the left value
 	 * @return a new left
 	 */
-	public static <A, B> Either<A, B> left(A left) {
+	public static <A, B> Either<A, B> left(final A left) {
 		return new Left<>(left);
 	}
 
 	/**
 	 * Factory method for constructing rights.
 	 *
-	 * @param <A>
-	 *            the left type
-	 * @param <B>
-	 *            the right type
-	 * @param right
-	 *            the right value
+	 * @param <A>   the left type
+	 * @param <B>   the right type
+	 * @param right the right value
 	 * @return a new right
 	 */
-	public static <A, B> Either<A, B> right(B right) {
+	public static <A, B> Either<A, B> right(final B right) {
 		return new Right<>(right);
 	}
 
@@ -92,40 +89,32 @@ public abstract class Either<A, B> {
 	/**
 	 *
 	 * @return the left value
-	 * @throws UnsupportedOperationException
-	 *             if the receiver is right
+	 * @throws UnsupportedOperationException if the receiver is right
 	 */
 	public abstract A getLeft();
 
 	/**
 	 *
 	 * @return the right value
-	 * @throws UnsupportedOperationException
-	 *             if the receiver is left
+	 * @throws UnsupportedOperationException if the receiver is left
 	 */
 	public abstract B getRight();
 
 	/**
 	 * Pass the value of this either to a consumer.
 	 *
-	 * @param leftConsumer
-	 *            the consumer for lefts
-	 * @param rightConsumer
-	 *            the consumer for rights
+	 * @param leftConsumer  the consumer for lefts
+	 * @param rightConsumer the consumer for rights
 	 */
 	public abstract void use(Consumer<A> leftConsumer, Consumer<B> rightConsumer);
 
 	/**
 	 * Map this Either&lt;A,B&gt; to a new Either&lt;X,Y&gt;.
 	 *
-	 * @param <X>
-	 *            the new left type
-	 * @param <Y>
-	 *            the new right type
-	 * @param leftFunction
-	 *            function to convert A to X
-	 * @param rightFunction
-	 *            function to convert B to Y
+	 * @param <X>           the new left type
+	 * @param <Y>           the new right type
+	 * @param leftFunction  function to convert A to X
+	 * @param rightFunction function to convert B to Y
 	 * @return a new Either&lt;X,Y&gt;
 	 */
 	public abstract <X, Y> Either<X, Y> map(Function<A, X> leftFunction, Function<B, Y> rightFunction);
@@ -133,12 +122,9 @@ public abstract class Either<A, B> {
 	/**
 	 * Reduce an Either&lt;A,B&gt; to a single value type T.
 	 *
-	 * @param <T>
-	 *            the result type
-	 * @param leftFunction
-	 *            function to convert A to T
-	 * @param rightFunction
-	 *            function to convert B to T
+	 * @param <T>           the result type
+	 * @param leftFunction  function to convert A to T
+	 * @param rightFunction function to convert B to T
 	 * @return a value typed T
 	 */
 	public abstract <T> T reduce(Function<A, T> leftFunction, Function<B, T> rightFunction);
@@ -152,6 +138,7 @@ public abstract class Either<A, B> {
 
 	public static final class Left<A, B> extends Either<A, B> {
 
+		private static final long serialVersionUID = 1L;
 		private final A left;
 
 		private Left(final A left) {
@@ -173,9 +160,8 @@ public abstract class Either<A, B> {
 
 		@Override
 		public int hashCode() {
-			int hash = 7;
-			hash = 17 * hash + Objects.hashCode(left);
-			return hash;
+			final int hash = 7;
+			return 17 * hash + Objects.hashCode(left);
 		}
 
 		@Override
@@ -190,17 +176,17 @@ public abstract class Either<A, B> {
 		}
 
 		@Override
-		public void use(Consumer<A> leftConsumer, Consumer<B> rightConsumer) {
+		public void use(final Consumer<A> leftConsumer, final Consumer<B> rightConsumer) {
 			leftConsumer.accept(left);
 		}
 
 		@Override
-		public <X, Y> Either<X, Y> map(Function<A, X> leftFunction, Function<B, Y> rightFunction) {
+		public <X, Y> Either<X, Y> map(final Function<A, X> leftFunction, final Function<B, Y> rightFunction) {
 			return new Left<>(leftFunction.apply(left));
 		}
 
 		@Override
-		public <T> T reduce(Function<A, T> leftFunction, Function<B, T> rightFunction) {
+		public <T> T reduce(final Function<A, T> leftFunction, final Function<B, T> rightFunction) {
 			return leftFunction.apply(left);
 		}
 
@@ -211,6 +197,8 @@ public abstract class Either<A, B> {
 	}
 
 	public static final class Right<A, B> extends Either<A, B> {
+
+		private static final long serialVersionUID = 1L;
 
 		private final B right;
 
@@ -233,9 +221,8 @@ public abstract class Either<A, B> {
 
 		@Override
 		public int hashCode() {
-			int hash = 3;
-			hash = 41 * hash + Objects.hashCode(right);
-			return hash;
+			final int hash = 3;
+			return 41 * hash + Objects.hashCode(right);
 		}
 
 		@Override
@@ -250,17 +237,17 @@ public abstract class Either<A, B> {
 		}
 
 		@Override
-		public void use(Consumer<A> leftConsumer, Consumer<B> rightConsumer) {
+		public void use(final Consumer<A> leftConsumer, final Consumer<B> rightConsumer) {
 			rightConsumer.accept(right);
 		}
 
 		@Override
-		public <X, Y> Either<X, Y> map(Function<A, X> leftFunction, Function<B, Y> rightFunction) {
+		public <X, Y> Either<X, Y> map(final Function<A, X> leftFunction, final Function<B, Y> rightFunction) {
 			return new Right<>(rightFunction.apply(right));
 		}
 
 		@Override
-		public <T> T reduce(Function<A, T> leftFunction, Function<B, T> rightFunction) {
+		public <T> T reduce(final Function<A, T> leftFunction, final Function<B, T> rightFunction) {
 			return rightFunction.apply(right);
 		}
 
