@@ -4,7 +4,7 @@
 	<groupId>com.github.nullterminated</groupId>
 	<artifactId>trylambda</artifactId>
 	<version>1.5-SNAPSHOT</version>
-	<packaging>jmod</packaging>
+	<packaging>jar</packaging>
 	<name>trylambda</name>
 	<description>A small Java library to improve checked exception handling in lambda expressions.</description>
 	<url>https://github.com/nullterminated/trylambda</url>
@@ -65,35 +65,6 @@
 					<source>11</source>
 					<target>11</target>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.3.0</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-						<configuration>
-							<classifier>modular-jar</classifier>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jmod-plugin</artifactId>
-				<version>3.0.0-alpha-1</version>
-				<extensions>true</extensions>
-				<dependencies>
-					<dependency>
-						<groupId>org.ow2.asm</groupId>
-						<artifactId>asm</artifactId>
-						<!--3.0.0-alpha-1 uses version 6.0_beta, which throws an IllegalArgumentException if the JDK is > 9.-->
-						<version>7.0</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 			<plugin>
 				<!-- Build code coverage reports -->

@@ -33,14 +33,13 @@ With these classes, trylambda can execute a try with resources block, without ne
 
 ## Examples
 
-The default packaging for trylambda is a jigsaw jmod. To add trylambda as a modular jar to a project with maven, add the following to the pom.xml depenedencies declaration:
+To add trylambda to a project with maven, add the following to the pom.xml depenedencies declaration:
 
 ```xml
 <dependency>
     <groupId>com.github.nullterminated</groupId>
     <artifactId>trylambda</artifactId>
-    <version>1.4</version>
-    <classifier>modular-jar</classifier>
+    <version>1.5</version>
 </dependency>
 ```
 
